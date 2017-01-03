@@ -1,8 +1,1 @@
-<ul>
-  <li class="text" *ngFor="let item of items | async">
-    Test: {{item.description.$value}}
-
-  </li>
-</ul>
-
-<h1>{{ item | async | json }}</h1>
+<h1>{{(item | async)?.$value}}</h1>

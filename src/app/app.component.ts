@@ -9,6 +9,8 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 export class AppComponent {
 item: FirebaseObjectObservable<any[]>;
   constructor(af: AngularFire) {
-    this.item = af.database.object('/items');
+    this.item = af.database.object('/items/description');
+
+    this.item.subscribe(x => console.log(x));
   }
 }

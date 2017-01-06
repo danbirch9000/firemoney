@@ -2,7 +2,7 @@
 
         <md-toolbar color="primary">
     <span>
-      <md-icon class="icon-20">pets</md-icon>
+      <md-icon class="icon-20">multiline_chart</md-icon>
       Money
     </span>
     <button md-icon-button>
@@ -17,19 +17,17 @@
     <md-card-title>Share Valuations</md-card-title>
     <md-card-subtitle>6/1/2017</md-card-subtitle>
   </md-card-header>
-  
   <md-card-content>
-
- <md-list-item>Lloyds: {{getLloydsShareValue() | currency:'GBP':true}} ({{lloydsSharePrice}})</md-list-item>
-        <md-list-item>Sound Oil: {{getSoundOilShareValue() | currency:'GBP':true}} ({{soundOilSharePrice}})</md-list-item>
-        <md-list-item>Total Value: {{getSoundOilShareValue() + getLloydsShareValue() | currency:'GBP':true}}</md-list-item>
-
-
+    <md-list>
+      <md-list-item>Lloyds: {{getLloydsShareValue() | currency:'GBP':true}} <input type="text" [(ngModel)]="lloydsSharePrice" /></md-list-item>
+      <md-list-item>Sound Oil: {{getSoundOilShareValue() | currency:'GBP':true}} <input type="text" [(ngModel)]="soundOilSharePrice" /></md-list-item>
+      <md-list-item>Total Value: {{getSoundOilShareValue() + getLloydsShareValue() | currency:'GBP':true}}</md-list-item>
+    </md-list>
+    <md-card-actions>
+      <button md-button>LIKE</button>
+      <button md-button>SHARE</button>
+    </md-card-actions>
   </md-card-content>
-  <md-card-actions>
-    <button md-button>LIKE</button>
-    <button md-button>SHARE</button>
-  </md-card-actions>
 </md-card>
 
 </div>

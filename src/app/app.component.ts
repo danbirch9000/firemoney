@@ -34,13 +34,13 @@ export class AppComponent {
 
   getLloydsShareValue = function(){
     let totalShares = 4447.880305	+ 1774;
-    let valueShares = (totalShares * 65.68) / 100;
+    let valueShares = (totalShares * this.lloydsSharePrice) / 100;
     return valueShares;
   }
 
   getSoundOilShareValue = function(){
     let totalShares = 525.660377;
-    let valueShares = (totalShares * 78.75) / 100;
+    let valueShares = (totalShares * this.soundOilSharePrice) / 100;
     return valueShares;
   }
 

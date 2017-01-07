@@ -6,6 +6,9 @@ import { AngularFireModule } from 'angularfire2';
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { DataService } from './services/data.service';
+
+
 
 export const firebaseConfig = {
     apiKey: "AIzaSyBQD1fUrMMXidnLRFmuyS9kx0DMrOs-Cl0",
@@ -26,7 +29,7 @@ export const firebaseConfig = {
     HttpModule,
     MaterialModule.forRoot()
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,9 +10,9 @@
     </button>
   </md-toolbar>
 
-<br>
 
-<md-card class="example-card">
+
+<md-card>
   <md-card-header>
     <md-card-title>Share Valuations</md-card-title>
     <md-card-subtitle>6/1/2017</md-card-subtitle>
@@ -39,7 +39,40 @@
     </md-list>
   </md-card-content>
 </md-card>
+<br />
 
+<md-card>
+  <md-card-content>
+    <md-list>
+      <md-list-item>Buffer: {{bufferValue | currency:'GBP':true}}</md-list-item>
+      <md-list-item>ISA: {{isaValue | currency:'GBP':true}}</md-list-item>
+      <md-list-item>Total Value: {{isaValue + bufferValue | currency:'GBP':true}}</md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>
+
+
+<md-card>
+  <md-card-content>
+    <md-list>
+      <md-list-item>Jan: {{tryToSave | currency:'GBP':true}}</md-list-item>
+      <md-list-item>Feb: {{tryToSave | currency:'GBP':true}}</md-list-item>
+      <md-list-item>Mar: {{tryToSave | currency:'GBP':true}}</md-list-item>
+      <md-list-item>Apr: {{tryToSave | currency:'GBP':true}}</md-list-item>
+      <md-list-item>Total: {{tryToSave * 4 | currency:'GBP':true}}</md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>
+
+
+<md-card>
+  <md-card-content>
+    <md-list>
+      <md-list-item>Total: {{isaValue + bufferValue + getSoundOilShareValue() + getLloydsShareValue() | currency:'GBP':true}}</md-list-item>
+      <md-list-item>Total: {{(tryToSave * 4) + isaValue + bufferValue + getSoundOilShareValue() + getLloydsShareValue() | currency:'GBP':true}}</md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>
 
 <button md-raised-button class="md-primary">Primary</button>
 

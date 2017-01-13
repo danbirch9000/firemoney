@@ -8,8 +8,8 @@ import { MaterialModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { DataService } from './services/data.service';
 
-
-
+import { StockService } from './services/stock.service';
+import './rxjs-extensions';
 export const firebaseConfig = {
     apiKey: "AIzaSyBQD1fUrMMXidnLRFmuyS9kx0DMrOs-Cl0",
     authDomain: "firemoney-fc650.firebaseapp.com",
@@ -29,7 +29,7 @@ export const firebaseConfig = {
     HttpModule,
     MaterialModule.forRoot()
   ],
-  providers: [DataService],
+  providers: [DataService, StockService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

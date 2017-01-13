@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { DataService } from './services/data.service';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
-
+import { StockService } from './services/stock.service';
 
 @Component({
   selector: 'app-root',
@@ -9,27 +8,43 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
   styleUrls: ['./app.component.css']
 })
 
-
-//http://finance.google.com/finance/info?client=ig&q=NASDAQ%3A,LLOY
-
 export class AppComponent {
   item: FirebaseObjectObservable<any[]>;
+  stockData: any;
+  errorMessage: any;
+  asOfDate: any;
 
-  testData = this.dataService.getVehicles();
-  
-
-  constructor(af: AngularFire, private dataService: DataService) {
+  constructor(af: AngularFire, private stockService: StockService) {
     this.item = af.database.object('/items/description');
     this.item.subscribe(x => console.log(x));
-    console.log(this.testData);
   }
 
-  soundOilSharePrice = 78.75;
-  lloydsSharePrice = 65.68;
+  soundOilSharePrice = 75.22;
+  lloydsSharePrice = 15.00;
   isaValue = 5020.61;
   bufferValue = 3741.75;
   tryToSave = 2000;
 
+   getStock() {
+      this.stockService.getStockValue()
+        .subscribe(
+          stock => this.formatResult(stock),
+          error =>  this.errorMessage = <any>error
+      );
+  }
+
+
+  formatResult(data){
+    this.lloydsSharePrice = data.data[0][1];
+    this.asOfDate = data.data[0][0];
+  }
+
+
+
+
+  ngOnInit() { 
+    this.getStock();
+  }
 
   getLloydsShareValue = function(){
     let totalShares = 4447.880305	+ 1774;

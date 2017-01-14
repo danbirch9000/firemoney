@@ -7,21 +7,12 @@ export class Stock {
   constructor(public id: number, public dataset_code: string, public name: string) { }
 }
 
-/*
-https://www.quandl.com/api/v3/datasets/GOOG/LON_LLOY.json?api_key=f4bqZx6uxW97nrryM_y_
-https://www.quandl.com/api/v3/datasets/GOOG/LON_SOU.json?api_key=f4bqZx6uxW97nrryM_y_
-*/
-
 @Injectable()
 export class StockService {
   constructor(private http: Http) { }
 
   getStockValue(stocks) {
-    console.log("stocks")
-    console.log(stocks)
-
   let observableBatch = [];
-
   stocks.forEach(( componentarray, key ) => {
     observableBatch.push(this.http.get( 'https://www.quandl.com/api/v3/datasets/LSE/'+ stocks[key] +'.json?api_key=f4bqZx6uxW97nrryM_y_')
     .map((res: Response) => res.json())

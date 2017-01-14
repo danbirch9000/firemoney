@@ -13,11 +13,8 @@ export class AppComponent {
   stockData: any;
   errorMessage: any;
   asOfDate: any;
-  lloydsSharePrice : 15.00;
-  soundOilSharePrice : 75.22;
-  isaValue : 5020.61;
-  bufferValue : 3741.75;
-  tryToSave : 2000;
+  //lloydsSharePrice: number;
+
 
   stocks: string[] = [ "LLOY", "SOU" ];
 
@@ -26,7 +23,11 @@ export class AppComponent {
     this.item.subscribe(x => console.log(x));
   }
 
-  
+  lloydsSharePrice = 15.00;
+  soundOilSharePrice = 75.22;
+  isaValue = 5020.61;
+  bufferValue = 3741.75;
+  tryToSave = 2000;
 
    getStock() {
       this.stockService.getStockValue(this.stocks)
@@ -37,8 +38,6 @@ export class AppComponent {
   }
 
   formatResult(data){
-    console.log("About to format data: ");
-    console.log(data);
     this.lloydsSharePrice = data[0].dataset.data[0][1];
     this.soundOilSharePrice = data[1].dataset.data[0][1];
     this.asOfDate = data[0].dataset.data[0][0];

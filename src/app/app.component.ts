@@ -13,34 +13,36 @@ export class AppComponent {
   stockData: any;
   errorMessage: any;
   asOfDate: any;
+  lloydsSharePrice : 15.00;
+  soundOilSharePrice : 75.22;
+  isaValue : 5020.61;
+  bufferValue : 3741.75;
+  tryToSave : 2000;
+
+  stocks: string[] = [ "LLOY", "SOU" ];
 
   constructor(af: AngularFire, private stockService: StockService) {
     this.item = af.database.object('/items/description');
     this.item.subscribe(x => console.log(x));
   }
 
-  soundOilSharePrice = 75.22;
-  lloydsSharePrice = 15.00;
-  isaValue = 5020.61;
-  bufferValue = 3741.75;
-  tryToSave = 2000;
+  
 
    getStock() {
-      this.stockService.getStockValue()
-        .subscribe(
+      this.stockService.getStockValue(this.stocks)
+      .subscribe(
           stock => this.formatResult(stock),
           error =>  this.errorMessage = <any>error
       );
   }
 
-
   formatResult(data){
-    this.lloydsSharePrice = data.data[0][1];
-    this.asOfDate = data.data[0][0];
+    console.log("About to format data: ");
+    console.log(data);
+    this.lloydsSharePrice = data[0].dataset.data[0][1];
+    this.soundOilSharePrice = data[1].dataset.data[0][1];
+    this.asOfDate = data[0].dataset.data[0][0];
   }
-
-
-
 
   ngOnInit() { 
     this.getStock();

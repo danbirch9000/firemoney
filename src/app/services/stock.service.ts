@@ -16,11 +16,44 @@ https://www.quandl.com/api/v3/datasets/GOOG/LON_SOU.json?api_key=f4bqZx6uxW97nrr
 export class StockService {
   constructor(private http: Http) { }
 
-  getStockValue(value?: string) {
-    return this.http.get('https://www.quandl.com/api/v3/datasets/LSE/LLOY.json?api_key=f4bqZx6uxW97nrryM_y_')
+  getStockValue(stocks) {
+    console.log("stocks")
+    console.log(stocks)
+
+  let observableBatch = [];
+
+  stocks.forEach(( componentarray, key ) => {
+    observableBatch.push(this.http.get( 'https://www.quandl.com/api/v3/datasets/LSE/'+ stocks[key] +'.json?api_key=f4bqZx6uxW97nrryM_y_')
+    .map((res: Response) => res.json())
+    .do(dataset => console.log(dataset))
+    .catch(this.handleError)
+    );
+  });
+
+  return Observable.forkJoin(observableBatch);
+
+
+  /*
+    return Observable.forkJoin(
+        this.http.get('https://www.quandl.com/api/v3/datasets/LSE/LLOY.json?api_key=f4bqZx6uxW97nrryM_y_')
+          .map((res:Response) => res.json())
+          .do(dataset => console.log(dataset))
+          .catch(this.handleError),
+        this.http.get('https://www.quandl.com/api/v3/datasets/LSE/SOU.json?api_key=f4bqZx6uxW97nrryM_y_')
+          .map((res:Response) => res.json())
+          .do(dataset => console.log(dataset))
+          .catch(this.handleError)
+    )*/
+
+    /*return this.http.get('https://www.quandl.com/api/v3/datasets/LSE/LLOY.json?api_key=f4bqZx6uxW97nrryM_y_')
       .map((response: Response) => <Stock>response.json().dataset)
       .do(dataset => console.log(dataset))
-      .catch(this.handleError);
+      .catch(this.handleError);*/
+
+
+
+
+
   }
 
   private handleError(error: Response) {

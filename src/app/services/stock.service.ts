@@ -16,7 +16,7 @@ export class StockService {
   stocks.forEach(( componentarray, key ) => {
     observableBatch.push(this.http.get( 'https://www.quandl.com/api/v3/datasets/LSE/'+ stocks[key] +'.json?api_key=f4bqZx6uxW97nrryM_y_')
     .map((res: Response) => res.json())
-    .do(dataset => console.log(dataset))
+    //.do(dataset => console.log(dataset))
     .catch(this.handleError)
     );
   });

@@ -10,6 +10,9 @@
     </button>
   </md-toolbar>
 
+
+
+
 <md-card>
   <md-card-header>
     <md-card-title>Share Valuations</md-card-title>
@@ -17,6 +20,16 @@
   </md-card-header>
   <md-card-content>
     <md-list>
+
+
+    <div *ngFor="let stock of stockData; let i = index">
+      <md-list-item>{{stock.dataset.name}}: {{getSharePriceValue(stock.dataset,i) | currency:'GBP':true}}</md-list-item>
+    </div>
+
+
+
+
+
       <md-list-item>Lloyds: {{getLloydsShareValue() | currency:'GBP':true}}</md-list-item>
       
       <md-list-item>
@@ -37,6 +50,14 @@
     </md-list>
   </md-card-content>
 </md-card>
+
+
+
+
+
+
+
+
 <br />
 
 <md-card>

@@ -9,18 +9,21 @@ import { StockService } from './services/stock.service';
 })
 
 export class AppComponent {
-  item: FirebaseObjectObservable<any[]>;
+  userStockInfo: FirebaseObjectObservable<any[]>;
   stockData: any;
   errorMessage: any;
   asOfDate: any;
+  userStock: any;
   //lloydsSharePrice: number;
-
 
   stocks: string[] = [ "LLOY", "SOU" ];
 
   constructor(af: AngularFire, private stockService: StockService) {
-    this.item = af.database.object('/items/description');
-    this.item.subscribe(x => console.log(x));
+    this.userStockInfo = af.database.object('/stocks/');
+    this.userStockInfo.subscribe(
+      userStock => this.handleUserStockReturn(userStock),
+      error =>  this.errorMessage = <any>error
+    );
   }
 
   lloydsSharePrice = 15.00;
@@ -29,27 +32,41 @@ export class AppComponent {
   bufferValue = 3741.75;
   tryToSave = 2000;
 
-   getStock() {
-      this.stockService.getStockValue(this.stocks)
+   getStock(stockCodes) {
+      this.stockService.getStockValue(stockCodes)
       .subscribe(
           stock => this.formatResult(stock),
           error =>  this.errorMessage = <any>error
       );
   }
 
+  handleUserStockReturn(userStock){
+    this.userStock = userStock
+    var stockCodes = [];
+    for (let stock of userStock) {
+      stockCodes.push(stock.code);
+    }
+    this.getStock(stockCodes);
+  }
+
+
   formatResult(data){
-    this.lloydsSharePrice = data[0].dataset.data[0][1];
-    this.soundOilSharePrice = data[1].dataset.data[0][1];
+    console.log(data);
+    this.stockData = data;
+    this.lloydsSharePrice = data[1].dataset.data[0][5];
+    this.soundOilSharePrice = data[0].dataset.data[0][5];
     this.asOfDate = data[0].dataset.data[0][0];
   }
 
-  ngOnInit() { 
-    this.getStock();
-  }
+  //ngOnInit() { 
+    //this.getStock();
+  //}
 
   getLloydsShareValue = function(){
+    
     let totalShares = 4447.880305	+ 1774;
     let valueShares = (totalShares * this.lloydsSharePrice) / 100;
+  //console.log(totalShares + " " + this.lloydsSharePrice);
     return valueShares;
   };
 
@@ -58,5 +75,17 @@ export class AppComponent {
     let valueShares = (totalShares * this.soundOilSharePrice) / 100;
     return valueShares;
   };
+
+getSharePriceValue(stock,i){
+  return (this.getQuantityOfShares(stock.dataset_code) * stock.data[0][5]) / 100;
+}
+
+getQuantityOfShares(code){
+  for (let stock of this.userStock) {
+      if(stock.code === code){
+        return stock.quantity;
+      }
+  }
+}
 
 }

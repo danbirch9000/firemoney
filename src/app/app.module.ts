@@ -2,10 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { AngularFireModule } from 'angularfire2';
+import { 
+  AngularFireModule, 
+  AuthMethods, 
+  AuthProviders 
+} from "angularfire2";
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
+import { StockWidgetComponent } from './stockwidget.component';
 import { DataService } from './services/data.service';
 
 import { StockService } from './services/stock.service';
@@ -20,11 +25,15 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StockWidgetComponent
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig,{
+      provider: AuthProviders.Google,
+      method: AuthMethods.Popup
+    }),
     FormsModule,
     HttpModule,
     MaterialModule.forRoot()

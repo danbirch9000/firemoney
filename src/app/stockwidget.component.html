@@ -1,0 +1,37 @@
+<md-card>
+  <md-card-header>
+    <md-card-title>Share Valuations</md-card-title>
+    <md-card-subtitle>{{asOfDate}}</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <md-list>
+
+
+    <div *ngFor="let stock of stockData; let i = index">
+      <md-list-item>{{stock.dataset.name}}: {{getSharePriceValue(stock.dataset,i) | currency:'GBP':true}}</md-list-item>
+    </div>
+
+
+
+
+
+      <md-list-item>Lloyds: {{getLloydsShareValue() | currency:'GBP':true}}</md-list-item>
+      
+      <md-list-item>
+        <md-input-container class="example-full-width">
+          <input md-input placeholder="Lloyds Share Price" [(ngModel)]="lloydsSharePrice"  />
+        </md-input-container>
+
+      </md-list-item>
+
+      <md-list-item>Sound Oil: {{getSoundOilShareValue() | currency:'GBP':true}}</md-list-item>
+      <md-list-item>
+        <md-input-container class="example-full-width">
+          <input md-input placeholder="Sound Oil Price" [(ngModel)]="soundOilSharePrice"  />
+        </md-input-container>
+      </md-list-item>
+
+      <md-list-item>Total Value: {{getSoundOilShareValue() + getLloydsShareValue() | currency:'GBP':true}}</md-list-item>
+    </md-list>
+  </md-card-content>
+</md-card>

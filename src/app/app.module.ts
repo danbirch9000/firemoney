@@ -32,7 +32,7 @@ export const firebaseConfig = {
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig,{
       provider: AuthProviders.Google,
-      method: AuthMethods.Popup
+      method: AuthMethods.Redirect
     }),
     FormsModule,
     HttpModule,

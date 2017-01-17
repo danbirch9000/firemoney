@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFire, FirebaseObjectObservable, AuthProviders } from 'angularfire2';
+import { AngularFire, FirebaseObjectObservable, FirebaseListObservable, AuthProviders } from 'angularfire2';
 import { StockService } from './services/stock.service';
 
 @Component({
@@ -10,19 +10,28 @@ import { StockService } from './services/stock.service';
 
 export class StockWidgetComponent {
   userStockInfo: FirebaseObjectObservable<any[]>;
+  addUserStock: FirebaseListObservable<any[]>;
   stockData: any;
   errorMessage: any;
   asOfDate: any;
   userStock: any;
   stocks: string[] = [ "LLOY", "SOU" ];
-
+  newStock: any;
 
   constructor(public af: AngularFire, private stockService: StockService) {
-    this.userStockInfo = af.database.object('/stocks/');
-    this.userStockInfo.subscribe(
+    this.userStockInfo = af.database.object('/users/yEa5gTrFZAUyjpECKve7y6f45DB3/stocks');
+    /*this.userStockInfo.subscribe(
+      userStock => this.handleUserStockReturn(userStock),
+      error =>  this.errorMessage = <any>error
+    );*/
+
+    this.addUserStock = af.database.list("users/yEa5gTrFZAUyjpECKve7y6f45DB3/stocks");
+    this.addUserStock.subscribe(
       userStock => this.handleUserStockReturn(userStock),
       error =>  this.errorMessage = <any>error
     );
+
+    this.newStock = { "code": "", "quantity":"" }
   }
 
         
@@ -31,6 +40,7 @@ export class StockWidgetComponent {
   isaValue = 5020.61;
   bufferValue = 3741.75;
   tryToSave = 2000;
+  
 
    getStock(stockCodes) {
       this.stockService.getStockValue(stockCodes)
@@ -42,11 +52,14 @@ export class StockWidgetComponent {
 
   //create an array of stock codes that a user has, used to pass to service.
   handleUserStockReturn(userStock){
+    console.log(userStock);
+    
     this.userStock = userStock
     var stockCodes = [];
     for (let stock of userStock) {
       stockCodes.push(stock.code);
     }
+    console.log(stockCodes);
     this.getStock(stockCodes);
   }
 
@@ -85,6 +98,9 @@ getQuantityOfShares(code){
   }
 }
 
+addStock(){
+  this.addUserStock.push(this.newStock);
+}
 
 
 }

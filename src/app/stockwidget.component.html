@@ -33,5 +33,18 @@
 
       <md-list-item>Total Value: {{getSoundOilShareValue() + getLloydsShareValue() | currency:'GBP':true}}</md-list-item>
     </md-list>
+
+
+
+    <md-input-container class="example-full-width">
+      <input md-input placeholder="Stock Code e.g. LLOY" [(ngModel)]="newStock.code"  />
+    </md-input-container>
+    <md-input-container class="example-full-width">
+      <input md-input placeholder="Quantity" [(ngModel)]="newStock.quantity"  />
+    </md-input-container>
+    <button md-raised-button (click)="addStock()">Add Stock</button>
+
+
+
   </md-card-content>
 </md-card>

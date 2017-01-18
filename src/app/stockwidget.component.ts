@@ -17,9 +17,11 @@ export class StockWidgetComponent {
   stocks: string[] = [ "LLOY", "SOU" ];
   newStock: any;
   isAuth = false;
+  addStockCardIsActive: Boolean;
   user = { "uid" : null} ;
 
   constructor(public af: AngularFire, private stockService: StockService) {
+    this.addStockCardIsActive = false;
     this.newStock = { "code": "", "quantity":"" }
     this.af.auth.subscribe(user => {
       if(user) {
@@ -64,6 +66,17 @@ export class StockWidgetComponent {
     return (this.getQuantityOfShares(stock.dataset_code) * stock.data[0][5]) / 100;
   }
 
+  getSharePriceTotalValue(){
+    var total = 0;
+    if(this.stockData != undefined){
+      for (let stock of this.stockData) {
+        total = total + (this.getQuantityOfShares(stock.dataset.dataset_code) * stock.dataset.data[0][5]) / 100;
+      }
+    }
+
+    return total;
+  }
+
   getQuantityOfShares(code){
     for (let stock of this.userStock) {
       if(stock.code === code){
@@ -74,6 +87,14 @@ export class StockWidgetComponent {
 
   addStock(){
     this.addUserStock.push(this.newStock);
+  }
+
+  showAddStockCard(){
+    this.addStockCardIsActive = true;
+  }
+
+  hideAddStockCard(){
+    this.addStockCardIsActive = false;
   }
 
 }

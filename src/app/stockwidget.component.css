@@ -2,10 +2,13 @@
   width: 100%;
 }
 
-.stock-name { 
-
-}
 .stock-value { 
         font-size: 1.5em;
         color: #333;
  }
+
+ md-card-actions { padding: 10px; }
+
+ md-card { margin-bottom: 15px; }
+
+ md-card-header { margin-bottom: 15px; }

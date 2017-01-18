@@ -1,6 +1,29 @@
 <div [class.dark-theme]="isDarkTheme">
 
-  <button *ngIf="!isAuth" md-raised-button (click)="login()"><img width="30" src="assets/google_logo.png" />Use My Google Account</button>
+
+
+
+  <div *ngIf="!isAuth">
+  <md-toolbar color="primary">
+    <span><md-icon class="icon-20">euro_symbol</md-icon>Kitty</span>
+  </md-toolbar>
+  
+
+    <md-card class="example-card">
+      <h2>Sign in</h2>
+      
+      <md-card-content>
+        <p>
+          Use one of the sign in options below to get started.
+        </p>
+        
+      </md-card-content>
+      <md-card-actions>
+        <button md-raised-button (click)="login()"><img width="30" src="assets/google_logo.png" />Sign in with Google</button>
+      </md-card-actions>
+    </md-card>
+
+  </div>
 
 
   <div *ngIf="isAuth">

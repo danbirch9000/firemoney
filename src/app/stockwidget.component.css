@@ -12,3 +12,5 @@
  md-card { margin-bottom: 15px; }
 
  md-card-header { margin-bottom: 15px; }
+ .delete-icon,
+ .edit-icon { font-size: 18px; }

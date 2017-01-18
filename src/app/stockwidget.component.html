@@ -13,7 +13,13 @@
 
     <div *ngFor="let stock of stockData; let i = index">
       <md-grid-list cols="2" rowHeight="50px">
-        <md-grid-tile> <span class="stock-name">{{stock.dataset.name}}:</span>  </md-grid-tile>
+        <md-grid-tile> 
+          
+          <span class="stock-name">
+            {{stock.dataset.name}}:<md-icon class="icon-20 edit-icon">mode_edit</md-icon><md-icon class="icon-20 delete-icon">delete</md-icon>
+          </span>
+          
+          </md-grid-tile>
         <md-grid-tile> <span class="stock-value">{{getSharePriceValue(stock.dataset,i) | currency:'GBP':true}}</span> </md-grid-tile>
       </md-grid-list>
     </div>

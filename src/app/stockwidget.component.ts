@@ -17,7 +17,7 @@ export class StockWidgetComponent {
   stocks: string[] = [ "LLOY", "SOU" ];
   newStock: any;
   isAuth = false;
-  user = { "uid" : null};
+  user = { "uid" : null} ;
 
   constructor(public af: AngularFire, private stockService: StockService) {
     this.newStock = { "code": "", "quantity":"" }
@@ -31,7 +31,7 @@ export class StockWidgetComponent {
           error =>  this.errorMessage = <any>error
         );
       } else {
-        this.user = {};
+        this.user = { "uid" : null} ;
         this.isAuth = false;
       }
     });

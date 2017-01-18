@@ -20,7 +20,6 @@ export class AppComponent {
         // user logged in
         this.user = user;
         this.isAuth = true;
-        console.log(user);
       }
       else {
         // user not logged in

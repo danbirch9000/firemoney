@@ -1,67 +1,21 @@
 <div [class.dark-theme]="isDarkTheme">
 
-
-<button md-raised-button (click)="login()">
-  <img width="30" src="google-logo.png" />Use My Google Account
-</button>
-<button md-raised-button (click)="logout()">
-  Logout
-</button>
+  <button *ngIf="!isAuth" md-raised-button (click)="login()"><img width="30" src="/assets/google_logo.png" />Use My Google Account</button>
 
 
-<div *ngIf="isAuth">
-
-
-        <md-toolbar color="primary">
-    <span>
-      <md-icon class="icon-20">multiline_chart</md-icon>
-      Money
-    </span>
-    <button md-icon-button>
-      <md-icon>more_vert</md-icon>
+  <div *ngIf="isAuth">
+  <md-toolbar color="primary">
+    <span><md-icon class="icon-20">euro_symbol</md-icon>Kitty</span>
+    <button md-icon-button [mdMenuTriggerFor]="menu">
+    <md-icon>more_vert</md-icon>
     </button>
+
+    <md-menu #menu="mdMenu">
+      <button md-menu-item (click)="logout()"><md-icon>exit_to_app</md-icon><span>Logout</span></button>
+    </md-menu>
+
   </md-toolbar>
+  <stock-widget></stock-widget>
+  </div>
 
-
-
-
-<stock-widget></stock-widget>
-
-
-
-
-
-
-
-
-<br />
-
-<md-card>
-  <md-card-content>
-    <md-list>
-      <md-list-item>Buffer: {{bufferValue | currency:'GBP':true}}</md-list-item>
-      <md-list-item>ISA: {{isaValue | currency:'GBP':true}}</md-list-item>
-      <md-list-item>Total Value: {{isaValue + bufferValue | currency:'GBP':true}}</md-list-item>
-    </md-list>
-  </md-card-content>
-</md-card>
-
-
-<md-card>
-  <md-card-content>
-    <md-list>
-      <md-list-item>Jan: {{tryToSave | currency:'GBP':true}}</md-list-item>
-      <md-list-item>Feb: {{tryToSave | currency:'GBP':true}}</md-list-item>
-      <md-list-item>Mar: {{tryToSave | currency:'GBP':true}}</md-list-item>
-      <md-list-item>Apr: {{tryToSave | currency:'GBP':true}}</md-list-item>
-      <md-list-item>Total: {{tryToSave * 4 | currency:'GBP':true}}</md-list-item>
-    </md-list>
-  </md-card-content>
-</md-card>
-
-
-
-<button md-raised-button class="md-primary">Primary</button>
-
-</div>
 </div>

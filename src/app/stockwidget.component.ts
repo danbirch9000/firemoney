@@ -17,7 +17,7 @@ export class StockWidgetComponent {
   stocks: string[] = [ "LLOY", "SOU" ];
   newStock: any;
   isAuth = false;
-  user = {};
+  user = { "uid" : null};
 
   constructor(public af: AngularFire, private stockService: StockService) {
     this.newStock = { "code": "", "quantity":"" }

@@ -1,11 +1,13 @@
-<div [class.dark-theme]="isDarkTheme">
+<div>
+
+
 
 
 
 
   <div *ngIf="!isAuth">
   <md-toolbar color="primary">
-    <span>mySavings</span>
+      <span>mySavings</span>
   </md-toolbar>
   
 
@@ -27,17 +29,20 @@
 
 
   <div *ngIf="isAuth">
+
+
   <md-toolbar color="primary">
-    <span>mySavings</span>
-    <button md-icon-button [mdMenuTriggerFor]="menu">
-    <md-icon>more_vert</md-icon>
-    </button>
-
-    <md-menu #menu="mdMenu">
-      <button md-menu-item (click)="logout()"><md-icon>exit_to_app</md-icon><span>Logout</span></button>
-    </md-menu>
-
+      <span>mySavings</span>
+      <span class="example-spacer"></span>
+      <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
+      <md-menu #menu="mdMenu">
+        <button md-menu-item (click)="logout()"><md-icon>exit_to_app</md-icon><span>Logout</span></button>
+      </md-menu>
   </md-toolbar>
+
+
+
+
   <stock-widget></stock-widget>
   </div>
 

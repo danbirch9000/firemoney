@@ -5,7 +5,7 @@ import { StockService } from './services/stock.service';
 @Component({
   selector: 'stock-widget',
   templateUrl: './stockwidget.component.html',
-  styleUrls: ['./stockwidget.component.css']
+  styleUrls: ['./stockwidget.component.scss']
 })
 
 export class StockWidgetComponent {
@@ -83,6 +83,17 @@ export class StockWidgetComponent {
         return stock.quantity;
       }
     }
+  }
+
+  getDescription(name){
+
+    //Stock Prices for Sound Energy Share Price
+// share price
+
+var test = name.split(" share price");
+
+return test[0];
+
   }
 
   addStock(){

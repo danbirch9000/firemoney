@@ -1,27 +1,27 @@
 <md-card>
-  <md-card-header>
-    <md-card-title>Share Valuations</md-card-title>
-    <md-card-subtitle>{{asOfDate}}</md-card-subtitle>
-  </md-card-header>
+
   <md-card-content>
 
-    <h2>Your Stocks</h2>
+    <h2>Your Stocks ({{asOfDate}})</h2>
 
      <div *ngIf="!stockData">
       <md-progress-spinner mode="indeterminate"></md-progress-spinner>
     </div>
 
-    <div *ngFor="let stock of stockData; let i = index">
-      <md-grid-list cols="2" rowHeight="50px">
-        <md-grid-tile> 
-          
-          <span class="stock-name">
-            {{stock.dataset.name}}:<md-icon class="icon-20 edit-icon">mode_edit</md-icon><md-icon class="icon-20 delete-icon">delete</md-icon>
-          </span>
-          
-          </md-grid-tile>
-        <md-grid-tile> <span class="stock-value">{{getSharePriceValue(stock.dataset,i) | currency:'GBP':true}}</span> </md-grid-tile>
-      </md-grid-list>
+
+
+
+
+
+    <div *ngFor="let stock of stockData; let i = index" class="stock-card">
+          <div class="stock-card__title">{{getDescription(stock.dataset.name)}}</div>
+          <span class="stock-card__value">{{getSharePriceValue(stock.dataset,i) | currency:'GBP':true}}</span> 
+          <span class="stock-card__price">({{stock.dataset.data[0][5]}})</span>
+
+          <div class="stock-card__actions">
+            <md-icon class="icon-20 edit-icon">mode_edit</md-icon>
+            <md-icon class="icon-20 delete-icon">delete</md-icon>
+          </div>
     </div>
 
     <md-grid-list cols="2" rowHeight="50px">

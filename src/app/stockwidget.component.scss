@@ -1,0 +1,27 @@
+.full-width {
+  width: 100%;
+}
+
+ md-card-actions { padding: 10px; }
+
+ md-card { margin-bottom: 15px; }
+
+ md-card-header { margin-bottom: 15px; }
+ .delete-icon,
+ .edit-icon { font-size: 18px; }
+
+
+.stock-card {
+  box-sizing: border-box;
+  .stock-card *,  .stock-card *:before,  .stock-card *:after {
+    box-sizing: inherit;
+  }
+}
+
+.stock-card { background-color: #f4f4f4; position: relative; width: 49%; padding: 20px; margin: 2px; display: inline-block;
+  .stock-card__title { font-size: 14px; margin-bottom: 5px; }
+  .stock-card__value { font-size: 26px; }
+  .stock-card__price { font-size: 11px; }
+  .stock-card__actions { background-color: #666; margin-top: 5px; padding: 2px; color: #FFF; }
+}
+ 

@@ -60,6 +60,9 @@ export class StockWidgetComponent {
   formatResult(data){
     this.stockData = data;
     this.asOfDate = data[0].dataset.data[0][0];
+    for (let i in this.stockData) {
+      this.stockData[i].dataset.quantity = this.userStock[i].quantity;;
+    }
   }
 
   getSharePriceValue(stock,i){
@@ -73,7 +76,6 @@ export class StockWidgetComponent {
         total = total + (this.getQuantityOfShares(stock.dataset.dataset_code) * stock.dataset.data[0][5]) / 100;
       }
     }
-
     return total;
   }
 
@@ -86,14 +88,7 @@ export class StockWidgetComponent {
   }
 
   getDescription(name){
-
-    //Stock Prices for Sound Energy Share Price
-// share price
-
-var test = name.split(" share price");
-
-return test[0];
-
+    return name.split(" share price")[0];
   }
 
   addStock(){

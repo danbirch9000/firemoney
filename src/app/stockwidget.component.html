@@ -8,15 +8,11 @@
       <md-progress-spinner mode="indeterminate"></md-progress-spinner>
     </div>
 
-
-
-
-
-
     <div *ngFor="let stock of stockData; let i = index" class="stock-card">
           <div class="stock-card__title">{{getDescription(stock.dataset.name)}}</div>
           <span class="stock-card__value">{{getSharePriceValue(stock.dataset,i) | currency:'GBP':true}}</span> 
           <span class="stock-card__price">({{stock.dataset.data[0][5]}})</span>
+          <span class="stock-card__price">({{stock.dataset.quantity}})</span>
 
           <div class="stock-card__actions">
             <md-icon class="icon-20 edit-icon">mode_edit</md-icon>
@@ -24,10 +20,13 @@
           </div>
     </div>
 
-    <md-grid-list cols="2" rowHeight="50px">
-      <md-grid-tile> <span class="stock-name">Total:</span>  </md-grid-tile>
-      <md-grid-tile> <span class="stock-value">{{getSharePriceTotalValue() | currency:'GBP':true}}</span> </md-grid-tile>
-    </md-grid-list>
+    <div class="stock-card">
+          <div class="stock-card__title">Total</div>
+          <span class="stock-card__value">{{getSharePriceTotalValue() | currency:'GBP':true}}</span> 
+    </div>
+
+
+
 
   </md-card-content>
   <md-card-actions>

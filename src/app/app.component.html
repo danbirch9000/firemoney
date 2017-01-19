@@ -1,49 +1,31 @@
 <div>
-
-
-
-
-
-
   <div *ngIf="!isAuth">
   <md-toolbar color="primary">
       <span>mySavings</span>
   </md-toolbar>
-  
-
     <md-card class="example-card">
       <h2>Sign in</h2>
-      
       <md-card-content>
         <p>
           Use one of the sign in options below to get started.
         </p>
-        
       </md-card-content>
       <md-card-actions>
         <button md-raised-button (click)="login()"><img width="30" src="assets/google_logo.png" />Sign in with Google</button>
       </md-card-actions>
     </md-card>
-
   </div>
 
-
   <div *ngIf="isAuth">
-
-
-  <md-toolbar color="primary">
-      <span>mySavings</span>
-      <span class="example-spacer"></span>
-      <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
-      <md-menu #menu="mdMenu">
-        <button md-menu-item (click)="logout()"><md-icon>exit_to_app</md-icon><span>Logout</span></button>
-      </md-menu>
-  </md-toolbar>
-
-
-
-
-  <stock-widget></stock-widget>
+    <md-toolbar color="primary">
+        <span>mySavings</span>
+        <span class="example-spacer"></span>
+        <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
+        <md-menu #menu="mdMenu">
+          <button md-menu-item (click)="logout()"><md-icon>exit_to_app</md-icon><span>Logout</span></button>
+        </md-menu>
+    </md-toolbar>
+    <stock-widget></stock-widget>
   </div>
 
 </div>

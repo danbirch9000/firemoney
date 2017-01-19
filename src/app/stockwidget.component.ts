@@ -66,14 +66,14 @@ export class StockWidgetComponent {
   }
 
   getSharePriceValue(stock,i){
-    return (this.getQuantityOfShares(stock.dataset_code) * stock.data[0][5]) / 100;
+    return (stock.quantity * stock.data[0][5]) / 100;
   }
 
   getSharePriceTotalValue(){
     var total = 0;
     if(this.stockData != undefined){
       for (let stock of this.stockData) {
-        total = total + (this.getQuantityOfShares(stock.dataset.dataset_code) * stock.dataset.data[0][5]) / 100;
+        total = total + (stock.dataset.quantity * stock.dataset.data[0][5]) / 100;
       }
     }
     return total;

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable, AuthProviders } from 'angularfire2';
 import { StockService } from './services/stock.service';
+import { ChartModule } from 'angular2-chartjs';
 
 @Component({
   selector: 'stock-widget',
@@ -39,6 +40,17 @@ export class StockWidgetComponent {
     });
   }
 
+
+  type = 'line';
+
+options = {
+  responsive: true,
+  maintainAspectRatio: false
+};
+
+
+
+
   getStock(stockCodes) {
       this.stockService.getStockValue(stockCodes)
       .subscribe(
@@ -58,16 +70,43 @@ export class StockWidgetComponent {
   }
 
   formatResult(data){
+    console.log(data);
     this.stockData = data;
     this.asOfDate = data[0].dataset.data[0][0];
     for (let i in this.stockData) {
-      this.stockData[i].dataset.quantity = this.userStock[i].quantity;;
+
+      
+
+      this.stockData[i].dataset.quantity = this.userStock[i].quantity;
+      this.stockData[i].dataset.chartData = this.buildChartData(this.stockData[i].dataset.data, 7);
     }
   }
 
-  getSharePriceValue(stock,i){
-    return (stock.quantity * stock.data[0][5]) / 100;
+
+  buildChartData(data, days){
+
+var chartData = {
+  labels: [],
+  datasets: [
+    {
+      label: "My First dataset",
+      data: []
+    }
+  ]
+};
+
+
+
+    for(var i = 0; i < days; i++) {
+        chartData.datasets[0].data.push(data[i][5]);
+        chartData.labels.push(data[i][0]);
+    }
+    return chartData;
   }
+
+
+
+
 
   getSharePriceTotalValue(){
     var total = 0;

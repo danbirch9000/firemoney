@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { ChartModule } from 'angular2-chartjs';
+
 import { 
   AngularFireModule, 
   AuthMethods, 
@@ -36,7 +38,8 @@ export const firebaseConfig = {
     }),
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    ChartModule
   ],
   providers: [DataService, StockService],
   bootstrap: [AppComponent]

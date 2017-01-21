@@ -12,7 +12,8 @@ import {
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { StockWidgetComponent } from './stockwidget.component';
+import { StockWidgetComponent } from './stockwidget/stockwidget.component';
+import { SavingsWidgetComponent } from './savingswidget/savingswidget.component';
 import { DataService } from './services/data.service';
 
 import { StockService } from './services/stock.service';
@@ -28,7 +29,8 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    StockWidgetComponent
+    StockWidgetComponent,
+    SavingsWidgetComponent
   ],
   imports: [
     BrowserModule,

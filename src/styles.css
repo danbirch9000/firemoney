@@ -1,7 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import '~@angular/material/core/theming/prebuilt/purple-green.css';
 
 body {
         font-family: 'Roboto', sans-serif;
-        background-color: #f5f5f5;
+}
+
+body      { background-color: #2d2c34; color: #FFF; }
+md-card   { background-color: #343341; }
+h2        { color: #FFF; }
+
+
+
+
+.full-width {
+  width: 100%;
+}
+
+ md-card-actions { padding: 10px; }
+
+ md-card { margin-bottom: 15px; }
+
+ md-card-header { margin-bottom: 15px; }
+chart {
+  margin: 30px 0 10px;
 }

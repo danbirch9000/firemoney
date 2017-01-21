@@ -9,6 +9,15 @@
     </div>
 
     <div *ngFor="let stock of stockData; let i = index" class="stock-card">
+
+          <div class="stock-card__menu">
+            <button md-icon-button [mdMenuTriggerFor]="stockmenu"><md-icon>more_vert</md-icon></button>
+            <md-menu #stockmenu="mdMenu">
+              <button md-menu-item><md-icon>delete</md-icon><span>Delete</span></button>
+              <button md-menu-item><md-icon>mode_edit</md-icon><span>Update</span></button>
+            </md-menu>
+          </div>
+
           <div class="stock-card__title">{{getDescription(stock.dataset.name)}}</div>
           <span class="stock-card__value">{{(stock.dataset.quantity * stock.dataset.data[0][5]) / 100 | currency:'GBP':true}}</span> 
           <span class="stock-card__price">({{stock.dataset.data[0][5]}})</span>
@@ -16,10 +25,7 @@
           
           <chart [type]="type" [data]="stock.dataset.chartData" [options]="options"></chart>
 
-          <div class="stock-card__actions">
-            <md-icon class="icon-20 edit-icon">mode_edit</md-icon>
-            <md-icon class="icon-20 delete-icon">delete</md-icon>
-          </div>
+          
     </div>
 
 

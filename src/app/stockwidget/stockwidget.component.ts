@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable, AuthProviders } from 'angularfire2';
-import { StockService } from './services/stock.service';
+import { StockService } from '../services/stock.service';
 import { ChartModule } from 'angular2-chartjs';
+
 
 @Component({
   selector: 'stock-widget',
@@ -15,7 +16,7 @@ export class StockWidgetComponent {
   errorMessage: any;
   asOfDate: any;
   userStock: any;
-  stocks: string[] = [ "LLOY", "SOU" ];
+  //stocks: string[] = [ "LLOY", "SOU" ];
   newStock: any;
   isAuth = false;
   addStockCardIsActive: Boolean;
@@ -45,7 +46,22 @@ export class StockWidgetComponent {
 
 options = {
   responsive: true,
-  maintainAspectRatio: false
+  maintainAspectRatio: false,
+  legend: {
+            display: false
+  },
+   scales : {
+        xAxes : [ {
+            gridLines : {
+                display : false
+            }
+        } ],
+        yAxes : [ {
+            gridLines : {
+                display : false
+            }
+        } ]
+    }
 };
 
 
@@ -70,7 +86,6 @@ options = {
   }
 
   formatResult(data){
-    console.log(data);
     this.stockData = data;
     this.asOfDate = data[0].dataset.data[0][0];
     for (let i in this.stockData) {
@@ -89,7 +104,7 @@ var chartData = {
   labels: [],
   datasets: [
     {
-      label: "My First dataset",
+      label: "Value",
       data: []
     }
   ]
@@ -97,7 +112,7 @@ var chartData = {
 
 
 
-    for(var i = 0; i < days; i++) {
+    for(var i = days; i >= 0; i--) {
         chartData.datasets[0].data.push(data[i][5]);
         chartData.labels.push(data[i][0]);
     }

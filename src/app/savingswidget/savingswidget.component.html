@@ -1,0 +1,32 @@
+<md-card>
+  <md-card-content>
+
+    <h2>Your Savings</h2>
+
+    <div class="stock-card">
+          <div class="stock-card__title">Total</div>
+          <span class="stock-card__value"></span> 
+    </div>
+  </md-card-content>
+
+</md-card>
+
+<md-card>
+  <md-card-header>
+    <md-card-title>Add New Savings Account</md-card-title>
+  </md-card-header>
+  <md-card-content>
+
+    <md-input-container class="full-width">
+      <input md-input placeholder="Name" [(ngModel)]="newSavings.name"  />
+    </md-input-container>
+    <md-input-container class="full-width">
+      <input md-input placeholder="Balance" [(ngModel)]="newSavings.balance"  />
+    </md-input-container>
+
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button (click)="addSavings()">Add</button>
+    <button md-raised-button>Cancel</button>
+  </md-card-actions>
+</md-card>

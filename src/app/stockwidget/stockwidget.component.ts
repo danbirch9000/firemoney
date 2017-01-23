@@ -48,7 +48,10 @@ options = {
   responsive: true,
   maintainAspectRatio: false,
   legend: {
-            display: false
+            display: false,
+            labels: {
+                fontColor: 'rgba(255,255,255,1)'
+            }
   },
    scales : {
         xAxes : [ {
@@ -63,8 +66,6 @@ options = {
         } ]
     }
 };
-
-
 
 
   getStock(stockCodes) {
@@ -105,7 +106,8 @@ var chartData = {
   datasets: [
     {
       label: "Value",
-      data: []
+      data: [],
+      backgroundColor: 'rgba(49,165,157, 1)'
     }
   ]
 };

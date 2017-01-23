@@ -1,0 +1,9 @@
+.stock-card { 
+  background-color: #3a3948; color: #FFF; position: relative; width: 100%; padding: 20px; margin: 2px; display: inline-block; box-sizing: border-box;
+  .stock-card__title { font-size: 14px; margin-bottom: 5px; }
+  .stock-card__value { font-size: 26px; }
+  .stock-card__price { font-size: 11px; }
+  .stock-card__actions { background-color: #666; margin-top: 5px; padding: 2px; }
+  .stock-card__menu { position: absolute; top: 5px; right: 5px; }
+  .stock-card *,  .stock-card *:before,  .stock-card *:after { box-sizing: inherit; }
+}

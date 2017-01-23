@@ -15,7 +15,9 @@ export class SavingsWidgetComponent {
   newStock: any;
   isAuth = false;
   user = { "uid" : null};
-  newSavings = {"name" : null, "balance" : null}
+  newSavings = {"name" : null, "balance" : null};
+  savingsData: any;
+
 
   constructor(public af: AngularFire) {
 
@@ -25,7 +27,7 @@ export class SavingsWidgetComponent {
         this.isAuth = true;
         this.userSavings = af.database.list("users/"+this.user.uid+"/savings");
         this.userSavings.subscribe(
-          userStock => this.handleUserSavingsReturn(userStock),
+          userSavings => this.handleUserSavingsReturn(userSavings),
           error =>  this.errorMessage = <any>error
         );
       } else {
@@ -37,6 +39,7 @@ export class SavingsWidgetComponent {
 
   handleUserSavingsReturn(data){
           console.log(data);
+          this.savingsData = data;
   }
 
 

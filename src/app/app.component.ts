@@ -34,6 +34,10 @@ export class AppComponent {
   bufferValue = 3741.75;
   tryToSave = 2000;
 
+    onNotify(e){
+        console.log(e);
+    }
+
 
 login() {
   this.af.auth.login({

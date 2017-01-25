@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable, AuthProviders } from 'angularfire2';
 import { StockService } from '../services/stock.service';
 import { ChartModule } from 'angular2-chartjs';
@@ -11,6 +11,8 @@ import { ChartModule } from 'angular2-chartjs';
 })
 
 export class StockWidgetComponent {
+  @Output() notify: EventEmitter<number> = new EventEmitter<number>();
+
   addUserStock: FirebaseListObservable<any[]>;
   stockData: any;
   errorMessage: any;
@@ -96,6 +98,7 @@ options = {
       this.stockData[i].dataset.quantity = this.userStock[i].quantity;
       this.stockData[i].dataset.chartData = this.buildChartData(this.stockData[i].dataset.data, 7);
     }
+
   }
 
 
@@ -132,6 +135,9 @@ var chartData = {
         total = total + (stock.dataset.quantity * stock.dataset.data[0][5]) / 100;
       }
     }
+
+    this.notify.emit(total);
+
     return total;
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable, AuthProviders } from 'angularfire2';
 import { ChartModule } from 'angular2-chartjs';
 
@@ -19,6 +19,9 @@ export class SavingsWidgetComponent {
   savingsData: any;
 
 
+
+@Output() notify: EventEmitter<number> = new EventEmitter<number>();
+
   constructor(public af: AngularFire) {
 
     this.af.auth.subscribe(user => {
@@ -38,8 +41,16 @@ export class SavingsWidgetComponent {
   }
 
   handleUserSavingsReturn(data){
-          console.log(data);
+          //console.log(data);
           this.savingsData = data;
+
+          let total = 0;
+          for (let x of this.savingsData) {
+            total = total + parseFloat(x.balance);
+          }
+
+          console.log(total);
+          this.notify.emit(total);
   }
 
 

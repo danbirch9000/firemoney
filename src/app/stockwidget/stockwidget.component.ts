@@ -30,7 +30,7 @@ export class StockWidgetComponent {
   constructor(public af: AngularFire, private stockService: StockService,  @Inject(APP_CONFIG) private config: IAppConfig) {
     this.addStockCardIsActive = false;
     this.newStock = { "code": "", "quantity":"" };
-    this.config.totalStock;
+    //this.config.totalStock;
     this.af.auth.subscribe(user => {
       if(user) {
         this.user = user;

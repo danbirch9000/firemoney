@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ChartModule } from 'angular2-chartjs';
+import { APP_CONFIG, AppConfig } from './app.config';
 
 import { 
   AngularFireModule, 
@@ -43,7 +44,7 @@ export const firebaseConfig = {
     MaterialModule.forRoot(),
     ChartModule
   ],
-  providers: [DataService, StockService],
+  providers: [DataService, StockService, {provide: APP_CONFIG, useValue: AppConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

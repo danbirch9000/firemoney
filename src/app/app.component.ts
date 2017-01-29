@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Injectable, Inject,  Component } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, AuthProviders } from 'angularfire2';
 import { StockService } from './services/stock.service';
+import { APP_CONFIG, IAppConfig } from './app.config';
+
 
 @Component({
   selector: 'app-root',
@@ -8,15 +10,25 @@ import { StockService } from './services/stock.service';
   styleUrls: ['./app.component.css']
 })
 
+@Injectable()
 export class AppComponent {
   errorMessage: any;
-  isAuth = false;
-  authColor = 'warn';
-  user = {};
+  isAuth: boolean = false;
+  authColor: string = 'warn';
+  user: any;
+  /*
+  user = {
+      hasStarted: <boolean> null,
+      hasFinished: <boolean> null,
+      id: <number> null,
+  };*/
 
-  constructor(public af: AngularFire, private stockService: StockService) {
+
+  constructor(public af: AngularFire, private stockService: StockService, @Inject(APP_CONFIG) private config: IAppConfig) {
+
     this.af.auth.subscribe(user => {
       if(user) {
+        console.log(user);
         // user logged in
         this.user = user;
         this.isAuth = true;
@@ -35,7 +47,8 @@ export class AppComponent {
   tryToSave = 2000;
 
     onNotify(e){
-        console.log(e);
+        //console.log(e);
+        
     }
 
 

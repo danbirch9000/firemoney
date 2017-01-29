@@ -2,7 +2,7 @@
 
   <md-card-content>
 
-    <h2>Your Stocks ({{asOfDate}})</h2>
+    <h2>Your Stocks ({{asOfDate}}) {{config.totalStock}}</h2>
 
      <div *ngIf="!stockData">
       <md-progress-spinner mode="indeterminate"></md-progress-spinner>
@@ -31,8 +31,10 @@
 
 
     <div class="stock-card">
+
           <div class="stock-card__title">Total</div>
           <span class="stock-card__value">{{getSharePriceTotalValue() | currency:'GBP':true}}</span> 
+          <chart [type]="type" [data]="chartDataHistoricValue" [options]="options"></chart>
     </div>
   </md-card-content>
   <md-card-actions>

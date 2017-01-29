@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Injectable, Inject, Component, EventEmitter, Output } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable, AuthProviders } from 'angularfire2';
 import { StockService } from '../services/stock.service';
 import { ChartModule } from 'angular2-chartjs';
+import { APP_CONFIG, IAppConfig } from '../app.config';
+
 
 
 @Component({
@@ -23,10 +25,12 @@ export class StockWidgetComponent {
   isAuth = false;
   addStockCardIsActive: Boolean;
   user = { "uid" : null} ;
+  chartDataHistoricValue: {};
 
-  constructor(public af: AngularFire, private stockService: StockService) {
+  constructor(public af: AngularFire, private stockService: StockService,  @Inject(APP_CONFIG) private config: IAppConfig) {
     this.addStockCardIsActive = false;
-    this.newStock = { "code": "", "quantity":"" }
+    this.newStock = { "code": "", "quantity":"" };
+    this.config.totalStock;
     this.af.auth.subscribe(user => {
       if(user) {
         this.user = user;
@@ -44,30 +48,32 @@ export class StockWidgetComponent {
   }
 
 
+  
+
   type = 'line';
 
-options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  legend: {
-            display: false,
-            labels: {
-                fontColor: 'rgba(255,255,255,1)'
-            }
-  },
-   scales : {
-        xAxes : [ {
-            gridLines : {
-                display : false
-            }
-        } ],
-        yAxes : [ {
-            gridLines : {
-                display : false
-            }
-        } ]
-    }
-};
+  options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    legend: {
+              display: false,
+              labels: {
+                  fontColor: 'rgba(255,255,255,1)'
+              }
+    },
+    scales : {
+          xAxes : [ {
+              gridLines : {
+                  display : false
+              }
+          } ],
+          yAxes : [ {
+              gridLines : {
+                  display : false
+              }
+          } ]
+      }
+  };
 
 
   getStock(stockCodes) {
@@ -92,12 +98,12 @@ options = {
     this.stockData = data;
     this.asOfDate = data[0].dataset.data[0][0];
     for (let i in this.stockData) {
-
-      
-
       this.stockData[i].dataset.quantity = this.userStock[i].quantity;
       this.stockData[i].dataset.chartData = this.buildChartData(this.stockData[i].dataset.data, 7);
     }
+
+    this.chartDataHistoricValue = this.buildChartDataHistoricValue(14);
+
 
   }
 
@@ -124,6 +130,35 @@ var chartData = {
     return chartData;
   }
 
+  buildChartDataHistoricValue(days){
+      var chartData = {
+        labels: [],
+        datasets: [
+          {
+            label: "Value",
+            data: [],
+            backgroundColor: 'rgba(49,165,157, 1)'
+          }
+        ]
+      };
+      var quantity;
+      var count;
+      for (let i in this.stockData) {
+        quantity = this.userStock[i].quantity;
+          for(var j = days; j >= 0; j--) {
+              if(i == '0'){
+                chartData.datasets[0].data.push((this.stockData[i].dataset.data[j][5]/100) * quantity);
+                chartData.labels.push(this.stockData[i].dataset.data[j][0]);
+              }else{
+                chartData.datasets[0].data[count] = chartData.datasets[0].data[count] + (this.stockData[i].dataset.data[j][5]/100) * quantity;
+                count++;
+              }
+          }
+          count = 0;
+      }
+      return chartData;
+  }
+
 
 
 
@@ -137,7 +172,6 @@ var chartData = {
     }
 
     this.notify.emit(total);
-
     return total;
   }
 

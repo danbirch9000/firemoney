@@ -17,7 +17,7 @@ export class SavingsWidgetComponent {
   user = { "uid" : null};
   newSavings = {"name" : null, "balance" : null};
   savingsData: any;
-
+  savingsTotal: number = 0;
 
 
 @Output() notify: EventEmitter<number> = new EventEmitter<number>();
@@ -46,11 +46,12 @@ export class SavingsWidgetComponent {
 
           let total = 0;
           for (let x of this.savingsData) {
-            total = total + parseFloat(x.balance);
+            this.savingsTotal = this.savingsTotal + parseFloat(x.balance);
           }
 
-          console.log(total);
-          this.notify.emit(total);
+
+          console.log(this.savingsTotal);
+          this.notify.emit(this.savingsTotal);
   }
 
 

@@ -96,6 +96,7 @@ export class StockWidgetComponent {
 
   formatResult(data){
     this.stockData = data;
+    console.log(data);
     this.asOfDate = data[0].dataset.data[0][0];
     for (let i in this.stockData) {
       this.stockData[i].dataset.quantity = this.userStock[i].quantity;

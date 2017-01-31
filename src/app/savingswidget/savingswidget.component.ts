@@ -16,9 +16,10 @@ export class SavingsWidgetComponent {
   isAuth = false;
   user = { "uid" : null};
   newSavings = {"name" : null, "balance" : null};
+  updateSavings = {"name" : null, "balance" : null};
   savingsData: any;
   savingsTotal: number = 0;
-
+  createNewSavingsAccount: boolean;
 
 @Output() notify: EventEmitter<number> = new EventEmitter<number>();
 
@@ -38,27 +39,34 @@ export class SavingsWidgetComponent {
         this.isAuth = false;
       }
     });
+
+    this.createNewSavingsAccount = false;
   }
 
   handleUserSavingsReturn(data){
-          //console.log(data);
           this.savingsData = data;
-
           let total = 0;
           for (let x of this.savingsData) {
             this.savingsTotal = this.savingsTotal + parseFloat(x.balance);
           }
-
-
           console.log(this.savingsTotal);
           this.notify.emit(this.savingsTotal);
   }
 
-
-  addSavings(){
-    this.userSavings.push(this.newSavings);
+  addNewSavingsAccount(){
+      this.userSavings.push(this.newSavings);
+      this.createNewSavingsAccount = false;
   }
 
+
+
+  saveUpdateToSavingsAccount(saving){
+    this.userSavings.update(saving.$key, { balance: saving.balance, name: saving.name });
+  }
+
+  deleteSavingsAccount(saving){
+    this.userSavings.remove(saving.$key);
+  }
 
 
 }

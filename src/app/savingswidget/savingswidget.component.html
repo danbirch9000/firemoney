@@ -3,29 +3,9 @@
   <md-card-content>
 
     <h2>Your Savings</h2>
+      <a md-mini-fab routerLink="." (click)="createNewSavingsAccount = !createNewSavingsAccount"><md-icon>add_circle</md-icon></a>
 
-     <div *ngIf="!savingsData">
-      <md-progress-spinner mode="indeterminate"></md-progress-spinner>
-    </div>
-
-    <div class="stock-card">
-          <div class="stock-card__title">Total</div>
-          <span class="stock-card__value">{{savingsTotal | currency:'GBP':true}}</span> 
-    </div>
-    <div *ngFor="let saving of savingsData; let i = index" class="stock-card">
-
-          <div class="stock-card__title">{{saving.name}}</div>
-          <span class="stock-card__value">{{saving.balance | currency:'GBP':true}}</span> 
-
-    </div>
-
-
-    
-  </md-card-content>
-
-</md-card>
-
-<md-card>
+<div *ngIf="createNewSavingsAccount">
   <md-card-header>
     <md-card-title>Add New Savings Account</md-card-title>
   </md-card-header>
@@ -40,7 +20,46 @@
 
   </md-card-content>
   <md-card-actions>
-    <button md-raised-button (click)="addSavings()">Add</button>
-    <button md-raised-button>Cancel</button>
+    <button md-raised-button (click)="addNewSavingsAccount()">Add</button>
+    <button md-raised-button (click)="createNewSavingsAccount = !createNewSavingsAccount">Cancel</button>
   </md-card-actions>
+</div>
+
+
+     <div *ngIf="!savingsData">
+      <md-progress-spinner mode="indeterminate"></md-progress-spinner>
+    </div>
+
+    <div class="savings-card">
+          <div class="savings-card__title">Total</div>
+          <span class="savings-card__value">{{savingsTotal | currency:'GBP':true}}</span> 
+    </div>
+    <div *ngFor="let saving of savingsData; let i = index" class="savings-card">
+          <div class="savings-card__menu">
+            <button md-icon-button [mdMenuTriggerFor]="savingsmenu"><md-icon>more_vert</md-icon></button>
+            <md-menu #savingsmenu="mdMenu">
+              <button md-menu-item (click)='deleteSavingsAccount(saving)'><md-icon>delete</md-icon><span>Delete</span></button>
+              <button md-menu-item (click)='saving.show = !saving.show'><md-icon>mode_edit</md-icon><span>Update</span></button>
+            </md-menu>
+          </div>
+          <div class="savings-card__title">{{saving.name}}</div>
+          <span class="savings-card__value">{{saving.balance | currency:'GBP':true}}</span> 
+
+          <div [hidden]='!saving.show'>
+            <md-input-container class="full-width">
+              <input md-input placeholder="{{saving.name}}" [(ngModel)]="saving.name"  />
+            </md-input-container>
+            <md-input-container class="full-width">
+              <input md-input placeholder="{{saving.balance}}" [(ngModel)]="saving.balance"  />
+            </md-input-container> 
+            
+            <button md-raised-button (click)="saveUpdateToSavingsAccount(saving)">Save</button>
+            <button md-raised-button (click)="saving.show = false">Cancel</button>
+
+          </div>
+
+
+    </div>
+  </md-card-content>
 </md-card>
+

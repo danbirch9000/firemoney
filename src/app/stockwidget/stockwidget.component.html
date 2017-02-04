@@ -26,7 +26,7 @@
           <span class="stock-card__price">({{stock.dataset.data[0][5]}})</span>
           <span class="stock-card__price">({{stock.dataset.quantity}})</span>
           
-          <chart [type]="type" [data]="stock.dataset.chartData" [options]="options"></chart>
+          <chart [type]="chartStructure.type" [data]="stock.dataset.chartData" [options]="chartStructure.options"></chart>
 
           
     </div>
@@ -37,7 +37,7 @@
 
           <div class="stock-card__title">Total</div>
           <span class="stock-card__value">{{getSharePriceTotalValue() | currency:'GBP':true}}</span> 
-          <chart [type]="type" [data]="chartDataHistoricValue" [options]="options"></chart>
+          <chart [type]="chartStructure.type" [data]="chartDataHistoricValue" [options]="chartStructure.options"></chart>
     </div>
   </md-card-content>
   <md-card-actions>

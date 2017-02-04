@@ -1,6 +1,7 @@
 import { Injectable, Inject, Component, EventEmitter, Output } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable, AuthProviders } from 'angularfire2';
 import { StockService } from '../services/stock.service';
+import { ChartService } from '../services/chart.service';
 import { ChartModule } from 'angular2-chartjs';
 import { APP_CONFIG, IAppConfig } from '../app.config';
 
@@ -26,8 +27,9 @@ export class StockWidgetComponent {
   addStockCardIsActive: Boolean;
   user = { "uid" : null} ;
   chartDataHistoricValue: {};
+  chartStructure:{ 'type' : any, 'data' : any, 'options' : any };
 
-  constructor(public af: AngularFire, private stockService: StockService,  @Inject(APP_CONFIG) private config: IAppConfig) {
+  constructor(public af: AngularFire, private stockService: StockService, private chartService: ChartService,  @Inject(APP_CONFIG) private config: IAppConfig) {
     this.addStockCardIsActive = false;
     this.newStock = { "code": "", "quantity":"" };
     //this.config.totalStock;
@@ -45,35 +47,13 @@ export class StockWidgetComponent {
         this.isAuth = false;
       }
     });
+
+    this.chartStructure = chartService.getChartData();
+
+
+
+
   }
-
-
-  
-
-  type = 'line';
-
-  options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    legend: {
-              display: false,
-              labels: {
-                  fontColor: 'rgba(255,255,255,1)'
-              }
-    },
-    scales : {
-          xAxes : [ {
-              gridLines : {
-                  display : false
-              }
-          } ],
-          yAxes : [ {
-              gridLines : {
-                  display : false
-              }
-          } ]
-      }
-  };
 
 
   getStock(stockCodes) {
@@ -96,7 +76,7 @@ export class StockWidgetComponent {
 
   formatResult(data){
     this.stockData = data;
-    console.log(data);
+  
     this.asOfDate = data[0].dataset.data[0][0];
     for (let i in this.stockData) {
       this.stockData[i].dataset.quantity = this.userStock[i].quantity;
@@ -111,37 +91,17 @@ export class StockWidgetComponent {
 
   buildChartData(data, days){
 
-var chartData = {
-  labels: [],
-  datasets: [
-    {
-      label: "Value",
-      data: [],
-      backgroundColor: 'rgba(49,165,157, 1)'
-    }
-  ]
-};
-
-
-
+    let chartData = JSON.parse(JSON.stringify(this.chartStructure['data']));
     for(var i = days; i >= 0; i--) {
         chartData.datasets[0].data.push(data[i][5]);
         chartData.labels.push(data[i][0]);
     }
+    
     return chartData;
   }
 
   buildChartDataHistoricValue(days){
-      var chartData = {
-        labels: [],
-        datasets: [
-          {
-            label: "Value",
-            data: [],
-            backgroundColor: 'rgba(49,165,157, 1)'
-          }
-        ]
-      };
+      let chartData = JSON.parse(JSON.stringify(this.chartStructure['data']));
       var quantity;
       var count;
       for (let i in this.stockData) {

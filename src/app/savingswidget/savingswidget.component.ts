@@ -49,7 +49,7 @@ export class SavingsWidgetComponent {
           for (let x of this.savingsData) {
             this.savingsTotal = this.savingsTotal + parseFloat(x.balance);
           }
-          console.log(this.savingsTotal);
+      
           this.notify.emit(this.savingsTotal);
   }
 

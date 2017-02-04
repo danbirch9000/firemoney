@@ -49,7 +49,6 @@ export class SavingsWidgetComponent {
           for (let x of this.savingsData) {
             this.savingsTotal = this.savingsTotal + parseFloat(x.balance);
           }
-      
           this.notify.emit(this.savingsTotal);
   }
 
@@ -58,8 +57,6 @@ export class SavingsWidgetComponent {
       this.createNewSavingsAccount = false;
   }
 
-
-
   saveUpdateToSavingsAccount(saving){
     this.userSavings.update(saving.$key, { balance: saving.balance, name: saving.name });
   }
@@ -67,6 +64,5 @@ export class SavingsWidgetComponent {
   deleteSavingsAccount(saving){
     this.userSavings.remove(saving.$key);
   }
-
 
 }

@@ -3,7 +3,7 @@
   <md-card-content>
 
     <h2>Your Savings</h2>
-      <a md-mini-fab routerLink="." (click)="createNewSavingsAccount = !createNewSavingsAccount"><md-icon>add_circle</md-icon></a>
+    <a class='add-savings' md-mini-fab routerLink="." (click)="createNewSavingsAccount = !createNewSavingsAccount"><md-icon>add_circle</md-icon></a>
 
 <div *ngIf="createNewSavingsAccount">
   <md-card-header>

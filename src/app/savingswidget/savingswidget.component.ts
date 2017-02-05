@@ -45,6 +45,7 @@ export class SavingsWidgetComponent {
 
   handleUserSavingsReturn(data){
           this.savingsData = data;
+          this.savingsTotal = 0;
           let total = 0;
           for (let x of this.savingsData) {
             this.savingsTotal = this.savingsTotal + parseFloat(x.balance);

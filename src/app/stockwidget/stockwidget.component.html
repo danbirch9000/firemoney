@@ -3,6 +3,23 @@
   <md-card-content>
 
     <h2>Your Stocks ({{asOfDate}}) {{config.totalStock}}</h2>
+    <a class='add-stock' md-mini-fab routerLink="." (click)="showAddStockCard()"><md-icon>add_circle</md-icon></a>
+
+
+<div *ngIf="addStockCardIsActive">
+    <md-input-container class="full-width">
+      <input md-input placeholder="Stock Code e.g. LLOY" [(ngModel)]="newStock.code"  />
+    </md-input-container>
+    <md-input-container class="full-width">
+      <input md-input placeholder="Quantity" [(ngModel)]="newStock.quantity"  />
+    </md-input-container>
+
+
+  <md-card-actions>
+    <button md-raised-button (click)="addStock()">Add</button>
+    <button md-raised-button (click)="hideAddStockCard()">Cancel</button>
+  </md-card-actions>
+</div>
 
      <div *ngIf="!stockData">
       <md-progress-spinner mode="indeterminate"></md-progress-spinner>
@@ -40,27 +57,6 @@
           <chart [type]="chartStructure.type" [data]="chartDataHistoricValue" [options]="chartStructure.options"></chart>
     </div>
   </md-card-content>
-  <md-card-actions>
-    <button md-raised-button (click)="showAddStockCard()">Add a Stock</button>
-  </md-card-actions>
+
 </md-card>
 
-<md-card *ngIf="addStockCardIsActive">
-  <md-card-header>
-    <md-card-title>Add New Stock</md-card-title>
-  </md-card-header>
-  <md-card-content>
-
-    <md-input-container class="full-width">
-      <input md-input placeholder="Stock Code e.g. LLOY" [(ngModel)]="newStock.code"  />
-    </md-input-container>
-    <md-input-container class="full-width">
-      <input md-input placeholder="Quantity" [(ngModel)]="newStock.quantity"  />
-    </md-input-container>
-
-  </md-card-content>
-  <md-card-actions>
-    <button md-raised-button (click)="addStock()">Add</button>
-    <button md-raised-button (click)="hideAddStockCard()">Cancel</button>
-  </md-card-actions>
-</md-card>

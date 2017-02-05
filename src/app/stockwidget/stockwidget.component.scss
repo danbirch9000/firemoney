@@ -8,3 +8,15 @@
   .stock-card__menu { position: absolute; top: 5px; right: 5px; }
   .stock-card *,  .stock-card *:before,  .stock-card *:after { box-sizing: inherit; }
 }
+
+[md-mini-fab] {
+  background-color: #7b1fa2; cursor: pointer;
+}
+md-card-actions { margin: 0; }
+
+
+.add-stock {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}

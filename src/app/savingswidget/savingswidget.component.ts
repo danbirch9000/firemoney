@@ -10,33 +10,33 @@ import { ChartModule } from 'angular2-chartjs';
 
 export class SavingsWidgetComponent {
 
-  userSavings: FirebaseListObservable<any[]>;
+  firebaseUsersSavings: FirebaseListObservable<any[]>;
   errorMessage: any;
   newStock: any;
-  isAuth = false;
-  user = { "uid" : null};
-  newSavings = {"name" : null, "balance" : null};
-  updateSavings = {"name" : null, "balance" : null};
+  isAuthenticated = false;
+  user = { "uid" : null };
+  newSavings = { "name" : null, "balance" : null };
+  updateSavings = { "name" : null, "balance" : null };
   savingsData: any;
   savingsTotal: number = 0;
   createNewSavingsAccount: boolean;
 
-@Output() notify: EventEmitter<number> = new EventEmitter<number>();
+  @Output() notify: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(public af: AngularFire) {
 
     this.af.auth.subscribe(user => {
       if(user) {
         this.user = user;
-        this.isAuth = true;
-        this.userSavings = af.database.list("users/"+this.user.uid+"/savings");
-        this.userSavings.subscribe(
+        this.isAuthenticated = true;
+        this.firebaseUsersSavings = af.database.list("users/"+this.user.uid+"/savings");
+        this.firebaseUsersSavings.subscribe(
           userSavings => this.handleUserSavingsReturn(userSavings),
           error =>  this.errorMessage = <any>error
         );
       } else {
         this.user = { "uid" : null} ;
-        this.isAuth = false;
+        this.isAuthenticated = false;
       }
     });
 
@@ -54,16 +54,16 @@ export class SavingsWidgetComponent {
   }
 
   addNewSavingsAccount(){
-      this.userSavings.push(this.newSavings);
+      this.firebaseUsersSavings.push(this.newSavings);
       this.createNewSavingsAccount = false;
   }
 
   saveUpdateToSavingsAccount(saving){
-    this.userSavings.update(saving.$key, { balance: saving.balance, name: saving.name });
+    this.firebaseUsersSavings.update(saving.$key, { balance: saving.balance, name: saving.name });
   }
 
   deleteSavingsAccount(saving){
-    this.userSavings.remove(saving.$key);
+    this.firebaseUsersSavings.remove(saving.$key);
   }
 
 }

@@ -15,7 +15,7 @@ import { MaterialModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { StockWidgetComponent } from './stockwidget/stockwidget.component';
 import { SavingsWidgetComponent } from './savingswidget/savingswidget.component';
-import { DataService } from './services/data.service';
+
 import { ChartService } from './services/chart.service';
 
 import { StockService } from './services/stock.service';
@@ -45,7 +45,7 @@ export const firebaseConfig = {
     MaterialModule.forRoot(),
     ChartModule
   ],
-  providers: [DataService, StockService, {provide: APP_CONFIG, useValue: AppConfig}, ChartService],
+  providers: [StockService, {provide: APP_CONFIG, useValue: AppConfig}, ChartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

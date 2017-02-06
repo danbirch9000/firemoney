@@ -16,45 +16,43 @@ import { APP_CONFIG, IAppConfig } from '../app.config';
 export class StockWidgetComponent {
   @Output() notify: EventEmitter<number> = new EventEmitter<number>();
 
-  addUserStock: FirebaseListObservable<any[]>;
+  firebaseUsersStock: FirebaseListObservable<any[]>;
   stockData: any;
   errorMessage: any;
   asOfDate: any;
   userStock: any;
-  //stocks: string[] = [ "LLOY", "SOU" ];
   newStock: any;
   isAuth = false;
   addStockCardIsActive: Boolean;
-  user = { "uid" : null} ;
+  user = { "uid" : null } ;
   chartDataHistoricValue: {};
-  chartStructure:{ 'type' : any, 'data' : any, 'options' : any };
+  chartStructure: { 'type' : any, 'data' : any, 'options' : any };
 
-  constructor(public af: AngularFire, private stockService: StockService, private chartService: ChartService,  @Inject(APP_CONFIG) private config: IAppConfig) {
-    this.addStockCardIsActive = false;
-    this.newStock = { "code": "", "quantity":"" };
-    //this.config.totalStock;
-    this.af.auth.subscribe(user => {
-      if(user) {
-        this.user = user;
-        this.isAuth = true;
-        this.addUserStock = af.database.list("users/"+this.user.uid+"/stocks");
-        this.addUserStock.subscribe(
-          userStock => this.handleUserStockReturn(userStock),
-          error =>  this.errorMessage = <any>error
-        );
-      } else {
-        this.user = { "uid" : null} ;
-        this.isAuth = false;
-      }
-    });
+  constructor(public af: AngularFire, 
+    private stockService: StockService,
+    private chartService: ChartService,
+    @Inject(APP_CONFIG) private config: IAppConfig) {
 
-    this.chartStructure = chartService.getChartData();
+      this.addStockCardIsActive = false;
+      this.newStock = { "code": "", "quantity":"" };
+      this.af.auth.subscribe(user => {
+        if(user) {
+          this.user = user;
+          this.isAuth = true;
 
+          this.firebaseUsersStock = af.database.list("users/"+this.user.uid+"/stocks");
+          this.firebaseUsersStock.subscribe(
+            userStock => this.handleUserStockReturn(userStock),
+            error =>  this.errorMessage = <any>error
+          );
 
-
-
+        } else {
+          this.user = { "uid" : null} ;
+          this.isAuth = false;
+        }
+      });
+      this.chartStructure = chartService.getChartData();
   }
-
 
   getStock(stockCodes) {
       this.stockService.getStockValue(stockCodes)
@@ -76,7 +74,6 @@ export class StockWidgetComponent {
 
   formatResult(data){
     this.stockData = data;
-  
     this.asOfDate = data[0].dataset.data[0][0];
     for (let i in this.stockData) {
       this.stockData[i].dataset.quantity = this.userStock[i].quantity;
@@ -84,19 +81,15 @@ export class StockWidgetComponent {
     }
 
     this.chartDataHistoricValue = this.buildChartDataHistoricValue(14);
-
-
   }
 
 
   buildChartData(data, days){
-
     let chartData = JSON.parse(JSON.stringify(this.chartStructure['data']));
     for(var i = days; i >= 0; i--) {
         chartData.datasets[0].data.push(data[i][5]);
         chartData.labels.push(data[i][0]);
     }
-    
     return chartData;
   }
 
@@ -119,10 +112,6 @@ export class StockWidgetComponent {
       }
       return chartData;
   }
-
-
-
-
 
   getSharePriceTotalValue(){
     var total = 0;
@@ -149,7 +138,7 @@ export class StockWidgetComponent {
   }
 
   addStock(){
-    this.addUserStock.push(this.newStock);
+    this.firebaseUsersStock.push(this.newStock);
   }
 
   showAddStockCard(){

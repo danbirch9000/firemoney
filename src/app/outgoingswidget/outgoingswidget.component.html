@@ -24,6 +24,7 @@
         <md-input-container class="full-width">
           <input md-input placeholder="Date" [(ngModel)]="newOutgoing.date"  type="number" />
         </md-input-container>
+        
 
       </md-card-content>
       <md-card-actions>
@@ -55,6 +56,7 @@
           <div class="outgoings-card__title">{{outgoing.description}}</div>
           <span class="outgoings-card__value">{{outgoing.amount | currency:'GBP':true}}</span> 
           <span>{{outgoing.date}}</span>
+          <span>{{outgoing.account}}</span>
     </div>
 
 

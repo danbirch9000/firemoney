@@ -16,10 +16,13 @@ import { AppComponent } from './app.component';
 import { StockWidgetComponent } from './stockwidget/stockwidget.component';
 import { SavingsWidgetComponent } from './savingswidget/savingswidget.component';
 import { OutgoingsWidgetComponent } from './outgoingswidget/outgoingswidget.component';
+import { CalculatorWidgetComponent } from './calculatorwidget/calculatorwidget.component';
 
 import { ChartService } from './services/chart.service';
 
 import { StockService } from './services/stock.service';
+import { FinanceService } from './services/finance.service';
+
 import './rxjs-extensions';
 export const firebaseConfig = {
     apiKey: "AIzaSyBQD1fUrMMXidnLRFmuyS9kx0DMrOs-Cl0",
@@ -34,7 +37,8 @@ export const firebaseConfig = {
     AppComponent,
     StockWidgetComponent,
     SavingsWidgetComponent,
-    OutgoingsWidgetComponent
+    OutgoingsWidgetComponent,
+    CalculatorWidgetComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,7 @@ export const firebaseConfig = {
     MaterialModule.forRoot(),
     ChartModule
   ],
-  providers: [StockService, {provide: APP_CONFIG, useValue: AppConfig}, ChartService],
+  providers: [StockService, {provide: APP_CONFIG, useValue: AppConfig}, ChartService, FinanceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
